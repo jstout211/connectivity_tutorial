@@ -15,6 +15,9 @@ Convert STCS to epochs for reading into EPhysDataset format <br>
 plot_dataset_mne.py  
 ```
 
+# Dataset
+Download the preprocessed data from the following folder: /vf/users/MEGmodules/modules/frites_dset.zip
+
 ## Load data for processing
 ```
 from load_data import load_dataset
