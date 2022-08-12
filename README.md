@@ -4,6 +4,11 @@ This tutorial is primarily based on the Frites package
 Additional information is on the tutorial wiki: <br>
   https://megcore.nih.gov/index.php/Meg_information_based_connectivity_coding_session
   
+# Installation
+```
+pip install git+https://github.com/jstout211/connectivity_tutorial.git
+```
+  
 
 
 # Dataset
