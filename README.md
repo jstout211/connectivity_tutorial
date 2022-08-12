@@ -16,7 +16,9 @@ plot_dataset_mne.py
 ```
 
 # Dataset
-Download the preprocessed data from the following folder: /vf/users/MEGmodules/modules/frites_dset.zip
+The preprocessed data will be in the following folder: /vf/users/MEGmodules/modules/frites_dset.zip <br>
+Download and unzip <br>
+The `frites_root_dir` will be the path of the unzipped folder <b>
 
 ## Load data for processing
 ```
