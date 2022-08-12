@@ -18,8 +18,8 @@ The `frites_root_dir` will be the path of the unzipped folder <b>
 
 ## Load data for processing
 ```
-from load_data import load_dataset
-ephys = load_dataset(frites_root_dir)  
+from frites_connectivity_tutorial.load_data import load_dataset
+dt = load_dataset(frites_root_dir)  
 ```
 
 # Preprocessing Description
