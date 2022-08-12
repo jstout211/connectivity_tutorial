@@ -21,7 +21,7 @@ ephys = load_dataset(frites_root_dir)
 Dataset: NIMH hv protocol data in bids format.  Using the sternberg task (encode4 vs encode6) <br>
 mne-bids-pipeline with default setting and 1-100Hz bandpass
 
-## Code used for preprocessing - already performed - Zipped outputs below
+## Code used for preprocessing - already performed - Zipped outputs listed above
 Convert the epoched data to STCS sources <br> 
 Convert STCS to epochs for reading into EPhysDataset format <br>
 ```
