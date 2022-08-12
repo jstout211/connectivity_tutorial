@@ -21,7 +21,11 @@ The `frites_root_dir` will be the path of the unzipped folder <b>
 from frites_connectivity_tutorial.load_data import load_dataset
 dt = load_dataset(frites_root_dir)  
 ```
-
+## Expected active regions for sternberg
+  based on 10.1016/j.schres.2008.06.013, the following regions should be active<br>
+  `superiorparietal, superiorfrontal, frontalpole, medialorbitofrontal, parsopercularis, parstriangularis, rostralmiddlefrontal`
+  
+  
 # Preprocessing Description
 Dataset: NIMH hv protocol data in bids format.  Using the sternberg task (encode4 vs encode6) <br>
 mne-bids-pipeline with default setting and 1-100Hz bandpass
