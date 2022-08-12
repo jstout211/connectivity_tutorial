@@ -12,7 +12,7 @@ mne-bids-pipeline with default setting and 1-100Hz bandpass
 Convert the epoched data to STCS sources <br> 
 Convert STCS to epochs for reading into EPhysDataset format <br>
 ```
-plot_dataset_mne.py  
+prep_sternberg_data.py  
 ```
 
 # Dataset
