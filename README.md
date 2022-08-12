@@ -8,4 +8,6 @@ Additional information is on the tutorial wiki:
 Dataset: NIMH hv protocol data in bids format.  Using the sternberg task (encode4 vs encode6)
 mne-bids-pipeline with default setting and 1-100Hz bandpass
 
-# Convert the data to STCS files and pack into EPhysDataset format
+# Convert the epoched data to STCS sources
+# Convert STCS to epochs for reading into EPhysDataset format
+plot_dataset_mne.py  
