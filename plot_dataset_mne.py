@@ -36,8 +36,6 @@ subjects = glob.glob(root+'/sub-*')
 subjects = [os.path.basename(i).replace('sub-','') for i in subjects]
 
 
-# def write_epoch_file(
-
 
 
 def preproc_frites(subject):
@@ -112,38 +110,35 @@ for subject in subjects:
 # =============================================================================
 # 
 # =============================================================================
-x_mne = []
-epoch_files = glob.glob(frites_output_root+ '/*_epo.fif')
-sorted(epoch_files)
-for k in epoch_files:
-    epoch = mne.read_epochs(k)
-    # finally, replace it in the original list
-    x_mne.append(epoch)
-print(x_mne[0])
-
-###############################################################################
-# Build the dataset
-# -----------------
-#
-# Finally, we pass the data to the :class:`frites.dataset.DatasetEphy` class
-# in order to create the dataset
-
-labels_fname = os.path.join(frites_output_root, 'ROIs_DK.csv')
-#Save out the roi names if not done
-#pd.DataFrame(label_names, columns=['ROInames']).to_csv(labels_fname,index=False)
-rois = pd.read_csv(labels_fname).ROInames.tolist()
-
-times_fname = os.path.join(frites_output_root, 'Epoch_times.csv')
-#pd.DataFrame(epoch.times, columns=['Times']).to_csv(times_fname,index=False)
-times = pd.read_csv(times_fname).Times.tolist()
-
-dt = DatasetEphy(x_mne, 
-                 y = [tmp_.events[:,2] for tmp_ in x_mne],
-                 roi=[rois for i in range(len(x_mne))],
-                 times=times)
+def load_mnedata():
+    '''Return list of MNE source epochs'''
+    x_mne = []
+    epoch_files = glob.glob(frites_output_root+ '/*_epo.fif')
+    sorted(epoch_files)
+    for k in epoch_files:
+        epoch = mne.read_epochs(k)
+        # finally, replace it in the original list
+        x_mne.append(epoch)
+    return x_mne
 
 
-#dt = DatasetEphy(x_mne)
-print(dt)
-print('Time vector : ', dt.times)
-print('ROI DataFrame\n: ', dt.df_rs)
+def load_dataset():
+    '''Load the MNE data, convert, and return EphysDataset'''
+    x_mne = load_mnedata()
+    labels_fname = os.path.join(frites_output_root, 'ROIs_DK.csv')
+    #Save out the roi names if not done
+    #pd.DataFrame(label_names, columns=['ROInames']).to_csv(labels_fname,index=False)
+    rois = pd.read_csv(labels_fname).ROInames.tolist()
+    
+    times_fname = os.path.join(frites_output_root, 'Epoch_times.csv')
+    #pd.DataFrame(epoch.times, columns=['Times']).to_csv(times_fname,index=False)
+    times = pd.read_csv(times_fname).Times.tolist()
+    
+    dt = DatasetEphy(x_mne, 
+                     y = [tmp_.events[:,2] for tmp_ in x_mne],
+                     roi=[rois for i in range(len(x_mne))],
+                     times=times)
+    return dt
+
+
+
