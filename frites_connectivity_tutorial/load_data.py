@@ -30,7 +30,7 @@ def load_mnedata(frites_output_root):
 
 def load_dataset(frites_output_root):
     '''Load the MNE data, convert, and return EphysDataset'''
-    x_mne = load_mnedata()
+    x_mne = load_mnedata(frites_output_root)
     labels_fname = os.path.join(frites_output_root, 'ROIs_DK.csv')
     #Save out the roi names if not done
     #pd.DataFrame(label_names, columns=['ROInames']).to_csv(labels_fname,index=False)
