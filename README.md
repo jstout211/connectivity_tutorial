@@ -12,7 +12,7 @@ pip install git+https://github.com/jstout211/connectivity_tutorial.git
 
 
 # Dataset
-The preprocessed data will be in the following folder: /vf/users/MEGmodules/modules/frites_dset.zip <br>
+The preprocessed data will be in the following folder on Biowulf: /vf/users/MEGmodules/modules/frites_dset.zip <br>
 Download and unzip <br>
 The `frites_root_dir` will be the path of the unzipped folder <b>
 
