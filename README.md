@@ -23,5 +23,5 @@ The `frites_root_dir` will be the path of the unzipped folder <b>
 ## Load data for processing
 ```
 from load_data import load_dataset
-ephys = load_dataset(frites_root_dir)   #The sternberg data folder will be on biowulf
+ephys = load_dataset(frites_root_dir)  
 ```
