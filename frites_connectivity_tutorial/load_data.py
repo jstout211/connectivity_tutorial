@@ -7,7 +7,7 @@ Created on Fri Aug 12 11:09:54 2022
 """
 
 import mne
-from frites import DatasetEphy
+from frites.dataset import DatasetEphy
 import glob
 import pandas as pd
 import os
