@@ -14,3 +14,8 @@ Convert STCS to epochs for reading into EPhysDataset format <br>
 ```
 plot_dataset_mne.py  
 ```
+
+## Load data for processing
+```
+load_mne_data.py 
+```
