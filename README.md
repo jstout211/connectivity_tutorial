@@ -17,5 +17,6 @@ plot_dataset_mne.py
 
 ## Load data for processing
 ```
-load_mne_data.py 
+from load_data import load_dataset
+ephys = load_dataset(frites_root_dir)   #The sternberg data folder will be on biowulf
 ```
