@@ -27,6 +27,22 @@ def load_mnedata(frites_output_root):
         x_mne.append(epoch)
     return x_mne
 
+def renameROI(rois):
+    
+    '''rename the roi names inside the rois list
+    input       output
+    name-Xh --> X_name'''
+    
+    roiList = []
+    for roi in rois:
+        if not roi == 'ROInames':
+            tmp_ = roi.split('-')
+            if tmp_[-1] == 'lh':
+                roiList.append('L_' + tmp_[0])
+            else:
+                roiList.append('R_'+ tmp_[0])
+
+    return roiList
 
 def load_dataset(frites_output_root):
     '''Load the MNE data, convert, and return EphysDataset'''
@@ -35,6 +51,7 @@ def load_dataset(frites_output_root):
     #Save out the roi names if not done
     #pd.DataFrame(label_names, columns=['ROInames']).to_csv(labels_fname,index=False)
     rois = pd.read_csv(labels_fname).ROInames.tolist()
+    rois = renameROI(rois) # frites friendly format
     
     times_fname = os.path.join(frites_output_root, 'Epoch_times.csv')
     #pd.DataFrame(epoch.times, columns=['Times']).to_csv(times_fname,index=False)
