@@ -1,3 +1,14 @@
+# ECOG testing 02/14/23
+Download the speech_basic.zip from:  https://searchworks.stanford.edu/view/zk881ps0522
+```
+from scipy.io import loadmat
+matlab_dat = loadmat('....mat')
+data = matlab_dat['data']
+stim = matlab_dat['cues']
+```
+
+
+
 # connectivity_tutorial
 This tutorial is primarily based on the Frites package
 
