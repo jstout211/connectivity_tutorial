@@ -91,6 +91,11 @@ def matToxArray(mat_fname):
     peaks0 = np.where(cues.flatten()>=.5)[0]
     onsets = (np.append(peaks0[0],peaks0[np.where(np.diff(peaks0)>1)[0]+1])) 
     offsets = (np.append(peaks0[np.where(np.diff(peaks0)>1)[0]]-1,peaks0[-1])) 
+    
+    # tmp_ = (cues[:-1]-cues[1:])*-1
+    # onsets = np.where(tmp_==1)[0]
+    # offsets = np.where(tmp_==-1)[0]
+    
 
     '''
     fig, ax=plt.subplots()
@@ -115,6 +120,12 @@ def matToxArray(mat_fname):
 
     ## @@@ TODO -- ROIS?
     dt = DatasetEphy(epochs, 
-                     y = [tmp_.events[:,2] for tmp_ in epochs],
-                     roi=[rois for i in range(len(epochs))],
+                     y = [1], #events,
+                     # y = [tmp_.events[:,2] for tmp_ in epochs],
+                     roi=chanNames,
                      times=epochs.times)
+    
+    
+    
+    
+    
