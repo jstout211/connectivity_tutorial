@@ -17,12 +17,23 @@ git clone https://github.com/jstout211/connectivity_tutorial.git
 pip install -e ./connectivity_tutorial
 ```
 
+## Convert the ECOG data to ephys
+```
+from frites_connectivity_tutorial.load_data import load_basic_speech
+dt = load_basic_speech('BASIC_SPEECH_DIR/data')
+```
+
+
+______________________________
+
+
+
+
 ###Convert the ECOG data to ephys (for frites processing)
 ```
 from frites_connectivity_tutorial.load_data import load_dataset
 dt = load_dataset(frites_root_dir)  
 ```
-
 
 
 
