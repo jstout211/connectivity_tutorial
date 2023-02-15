@@ -7,19 +7,20 @@ data = matlab_dat['data']
 stim = matlab_dat['cues']
 ```
 
-Install Frites
-```
-pip install frites
-```
-
-Install this package 
+Install this package (plus frites and mne) 
 ```
 pip install git+https://github.com/jstout211/connectivity_tutorial.git
 ```
-
-Convert the ECOG data to ephys (for frites processing)
+OR
 ```
-from ...
+git clone https://github.com/jstout211/connectivity_tutorial.git
+pip install -e ./connectivity_tutorial
+```
+
+###Convert the ECOG data to ephys (for frites processing)
+```
+from frites_connectivity_tutorial.load_data import load_dataset
+dt = load_dataset(frites_root_dir)  
 ```
 
 
