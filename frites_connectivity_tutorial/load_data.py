@@ -65,7 +65,7 @@ def load_dataset(frites_output_root):
     return dt
 
 
-def matToxArray(mat_fname):
+def matToEpochs(mat_fname):
 
     ''' load .mat file containing electrophysio/meg data and convert it to xArray format'''
 
@@ -116,14 +116,42 @@ def matToxArray(mat_fname):
 
     tDur = 1.6 # task duration - extracted from paper
     epochs = mne.Epochs(raw, events.astype(int), event_id=1, tmin=-0.5, tmax=0.8+tDur, baseline=(-.5, 0))
+    return epochs
 
+def load_basic_speech(topdir):
+    import glob
+    verbs=glob.glob(f'{topdir}/*verbs.mat')
+    nouns=glob.glob(f'{topdir}/*nouns.mat')
+    verb_subj_epos = []
+    verb_chs=[]
+    category_list = []
+    for fname in verbs:
+        epo = matToEpochs(fname)
+        verb_subj_epos.append(epo.get_data())
+        verb_chs.append(epo.ch_names)
+        category_list.append([1]*len(epo))
+    for fname in nouns:
+        epo = matToEpochs(fname)
+        verb_subj_epos.append(epo.get_data())
+        verb_chs.append(epo.ch_names)
+        category_list.append([2]*len(epo))
+    
+    dt = DatasetEphy(verb_subj_epos, 
+                 # y = [1]*len(verb_subj_epos),
+                 y = category_list,
+                 roi=verb_chs,
+                 times=epo.times)
+    return dt
+    
+        
+# from scipy.io import loadmat        
 
-    ## @@@ TODO -- ROIS?
-    dt = DatasetEphy(epochs, 
-                     y = [1], #events,
-                     # y = [tmp_.events[:,2] for tmp_ in epochs],
-                     roi=chanNames,
-                     times=epochs.times)
+#     ## @@@ TODO -- ROIS?
+#     dt = DatasetEphy(epochs, 
+#                      y = [1], #events,
+#                      # y = [tmp_.events[:,2] for tmp_ in epochs],
+#                      roi=chanNames,
+#                      times=epochs.times)
     
     
     
