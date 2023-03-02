@@ -125,6 +125,7 @@ def load_basic_speech(topdir):
     verb_subj_epos = []
     verb_chs=[]
     category_list = []
+
     for fname in verbs:
         epo = matToEpochs(fname)
         verb_subj_epos.append(epo.get_data())
@@ -141,19 +142,79 @@ def load_basic_speech(topdir):
                  y = category_list,
                  roi=verb_chs,
                  times=epo.times)
+    
+    global subjIDs_ephy
+    subjIDs_ephy = []
+    
+    allFiles = verbs + nouns
+    for file in allFiles:
+        subjIDs_ephy.append(file.split('/')[-1].split('_')[0])
+
     return dt
     
-        
-# from scipy.io import loadmat        
 
-#     ## @@@ TODO -- ROIS?
-#     dt = DatasetEphy(epochs, 
-#                      y = [1], #events,
-#                      # y = [tmp_.events[:,2] for tmp_ in epochs],
-#                      roi=chanNames,
-#                      times=epochs.times)
+def add_head(renderer, points, triangles, color, opacity=0.95):
     
-    
-    
-    
+    ''' helper function for rendering '''
+    renderer.mesh(*points.T, triangles=triangles, color=color,
+                  opacity=opacity)       
+
+def showElectrodes_speech(topdir, subjID):
+
+    ''' 
+    show electrode locations on the brain 
+
+    input: 
+    topdir: BASIC_SPEECH/data/
+    subjID: subject number in xarray
+    subjIDs_ephy: global variable - list containing all subject IDs that comprise the ephy object
+
+    output:
+    mne figure with head mesh and electrodes
+    '''
+
+    # find path to brain data and load them
+    brainDataPath = os.path.realpath(os.path.join(topdir, '..', 'brains'))
+    brains = glob.glob(f'{brainDataPath}/*brain.mat')
+
+    # get subjIDs that have brain/electrode data
+    subjIDs_brains = [brain.split('/')[-1].split('_')[0] for brain in brains]
+
+    # get ID of selected subject in ephy object
+    sel_subjID = subjIDs_ephy[subjID]
+    try:
+        idx = subjIDs_brains.index(sel_subjID) # if it exists, find brain data of the selected subject
+        fname = brains[idx]
+        dict_ = loadmat(fname)
+
+        print('loading data from subject ' + sel_subjID)
+
+        brain = dict_['brain'] # brain mesh vertex/faces
+        rr = brain[0][0][0] # coordinates
+        tris = brain[0][0][1] - 1 # triangles - they are one based, make them  0 based
+
+        locs = dict_['locs'] # electrode locations
+
+        # create mne renderer to plot data 
+        renderer = mne.viz.backends.renderer.create_3d_figure(
+            size=(600, 600), bgcolor='w', scene=False)
+
+        # render brain mesh
+        add_head(renderer, rr,tris, color='gray',opacity=0.5)
+
+        # render electrode locations and label
+        for l in range(locs.shape[0]):
+
+            renderer.sphere(center=locs[l,:], color='yellow', scale=2)
+            renderer.text3d(locs[l,0],locs[l,1],locs[l,2], 'e'+ str(l+1), 10,'k')
+
+        mne.viz.set_3d_view(figure=renderer.figure, distance=800,
+                            focalpoint=(0., 30., 30.), elevation=105, azimuth=180)
+        renderer.show()
+
+        
+    except:
+        print("no electrodes recorded for participant")
+
+   
     
